@@ -1,3 +1,7 @@
 grant {
     permission java.security.AllPermission;
 };
+
+grant codebase "file:/path/to/code" {
+    permission java.io.FilePermission "\D:\Documents\Etudes\4 - Polytech\Polytech 2 - redoublement\Architecture distribuée\HighTunes-serveur\-, "read";
+};
