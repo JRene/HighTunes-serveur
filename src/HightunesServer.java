@@ -1,3 +1,4 @@
+import java.io.File;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -34,10 +35,16 @@ public class HightunesServer {
 	}
 	
 	public static void main(String args[]) {
-		//System.setSecurityManager(new SecurityManager());
+		String path = new File("rmi.policy").getAbsolutePath();
+		System.out.println(path);
+		System.setProperty("java.security.policy", path);
+		if (System.getSecurityManager() == null) {
+			System.setSecurityManager(new SecurityManager());
+		}
 		try {
 			HightunesServer serveur = new HightunesServer();
-			Registry registry = LocateRegistry.createRegistry(1099);
+			// Créer le registry avec la console (rmiregistry 1099)
+			Registry registry = LocateRegistry.getRegistry();
 			registry.rebind("leCatalogue", serveur.getCatalogue());
 			registry.rebind("lesPaniers", serveur.getPaniers());
 			registry.rebind("lesCommandes", serveur.getCommandes());

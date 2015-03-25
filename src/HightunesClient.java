@@ -7,14 +7,17 @@ import java.util.Scanner;
 public class HightunesClient implements Remote, Runnable {
 	@Override
 	public void run() {
-		//System.setSecurityManager(new SecurityManager());
+		if (System.getSecurityManager() == null) {
+			System.setSecurityManager(new SecurityManager());
+		}
 		try {
-			Registry registry = LocateRegistry.getRegistry("localhost", 1099);
+			// Créer le registry avec la console (rmiregistry 1099)
+			Registry registry = LocateRegistry.getRegistry();
 			CatalogueInterface catalogue = (CatalogueInterface) registry.lookup("leCatalogue");
 			GestionnairePaniersInterface paniers = (GestionnairePaniersInterface) registry.lookup("lesPaniers");
 			GestionnaireCommandesInterface commandes = (GestionnaireCommandesInterface) registry.lookup("lesCommandes");
 
-			System.out.println("Connect�");
+			System.out.println("Connecté");
 
 			int idPanier = paniers.creerPanier(), idCommande = -1, choixArticle, qteArticle;
 			String choix;
@@ -31,7 +34,7 @@ public class HightunesClient implements Remote, Runnable {
 					System.out.println("Choix de l'article : ");
 					choixArticle = sc.nextInt();
 					paniers.ajouterArticle(idPanier, choixArticle);
-					System.out.println("Quantit� : ");
+					System.out.println("Quantité : ");
 					qteArticle = sc.nextInt();
 					paniers.modifierQteArticle(idPanier, choixArticle, qteArticle);
 					break;
@@ -44,7 +47,7 @@ public class HightunesClient implements Remote, Runnable {
 						idPanier = -1;
 						//idCommande = paniers.passerCommande(idPanier);
 						//commandes.payer(idCommande);
-						System.out.println("Paiement effectu�");
+						System.out.println("Paiement effectué");
 						choix = "5";
 					}
 					break;
