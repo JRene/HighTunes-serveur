@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<project name="securitymanager_1" basedir="." default="run">
+	
+	<target name="run">
+		<java classname="ReadClasspath" fork="true">
+			<classpath>
+				<pathelement location="./bin"/>
+			</classpath>
+			<jvmarg value="-Djava.security.manager" />
+			<jvmarg value="-Djava.security.policy=readclasspath.policy" />
+		</java>
+	</target>
+		
+</project>
