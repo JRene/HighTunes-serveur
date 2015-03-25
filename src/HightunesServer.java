@@ -2,8 +2,6 @@ import java.io.File;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.rmi.server.UnicastRemoteObject;
-import java.util.Date;
 import java.util.Scanner;
 
 
@@ -36,15 +34,14 @@ public class HightunesServer {
 	
 	public static void main(String args[]) {
 		String path = new File("rmi.policy").getAbsolutePath();
-		System.out.println(path);
 		System.setProperty("java.security.policy", path);
 		if (System.getSecurityManager() == null) {
 			System.setSecurityManager(new SecurityManager());
 		}
 		try {
 			HightunesServer serveur = new HightunesServer();
-			// Créer le registry avec la console (rmiregistry 1099)
-			Registry registry = LocateRegistry.getRegistry();
+			// Créer le registry avec la console (start rmiregistry 1099)
+			Registry registry = LocateRegistry.getRegistry(1099);
 			registry.rebind("leCatalogue", serveur.getCatalogue());
 			registry.rebind("lesPaniers", serveur.getPaniers());
 			registry.rebind("lesCommandes", serveur.getCommandes());
@@ -67,7 +64,6 @@ public class HightunesServer {
 			//sc.close();
 		} catch (Exception e) {
 			System.out.println("Erreur serveur : " + e.getMessage());
-			e.printStackTrace();
 		}
 	}
 }

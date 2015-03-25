@@ -41,6 +41,7 @@ public class Panier {
 		return prixTotal;
 	}
 	
+	@Override
 	public String toString() {
 		String res = "=== Panier ===\n";
 		if (contenu.isEmpty())

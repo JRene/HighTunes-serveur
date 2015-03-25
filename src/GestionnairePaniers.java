@@ -1,7 +1,6 @@
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.HashMap;
-import java.util.Iterator;
 
 
 public class GestionnairePaniers extends UnicastRemoteObject implements GestionnairePaniersInterface {
