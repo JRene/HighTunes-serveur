@@ -21,7 +21,7 @@ public class Panier {
 	}
 
 	public void modifierQteArticle(Article a, int qte) {
-		contenu.replace(a, qte);
+		contenu.put(a, qte);
 	}
 	
 	public void supprimerArticle(Article a) {
